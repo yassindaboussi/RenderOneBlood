@@ -136,8 +136,23 @@ router.post("/UpdateUser", (req, res) => {
     avatar: req.body.avatar,
   };
   User.findByIdAndUpdate(req.body.id, { $set: updatedUser })
-    .then(() => {
-      res.json({ message: "user updated successfully" });
+    .then((savedUser) => {
+              res.status(202).send(
+          JSON.stringify({
+            //200 OK
+              id: savedUser._id,
+              name: savedUser.name,
+              email: savedUser.email,
+              blood: savedUser.blood,
+              age: savedUser.age,
+              weight: savedUser.weight,
+              adress: savedUser.adress,
+              phone: savedUser.phone,
+              usertype: savedUser.usertype,
+              avatar: savedUser.avatar,
+              token: "",
+          })
+        );
     })
     .catch((error) => {
       res.json({
