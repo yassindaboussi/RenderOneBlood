@@ -193,7 +193,7 @@ router.post("/UpdateAvatar", (req, res) => {
 var transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.email,
+    user: process.env.Email,
     pass: process.env.Password,
   },
 });
