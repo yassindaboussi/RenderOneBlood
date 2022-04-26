@@ -320,7 +320,22 @@ router.post("/ByFacebook", async (req, res) => {
     user
       .save()
       .then((user) => {
-        res.json({ message: "Inscription by Facebook" });
+               res.status(202).send(
+          JSON.stringify({
+            //200 OK
+            id: savedUser._id,
+            name: savedUser.name,
+            email: savedUser.email,
+            blood: savedUser.blood,
+            age: savedUser.age,
+            weight: savedUser.weight,
+            adress: savedUser.adress,
+            phone: savedUser.phone,
+            usertype: savedUser.usertype,
+            avatar: savedUser.avatar,
+            token: accessToken,
+          })
+        );
       })
       .catch((err) => {
         console.log(err);
