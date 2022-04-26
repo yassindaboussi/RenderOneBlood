@@ -304,7 +304,9 @@ router.post("/ByFacebook", async (req, res) => {
   }
   ////////////////////////////////////////////////////////////////////////////////
   else {
-    const user = new User({
+    console.log("if email exist ---->  Inscription by Facebook");
+
+    const savedUser = new User({
       name,
       email,
       password: " ",
@@ -317,10 +319,10 @@ router.post("/ByFacebook", async (req, res) => {
       avatar: name,
       code: " ",
     });
-    user
+    savedUser
       .save()
-      .then((user) => {
-               res.status(202).send(
+      .then((savedUser) => {
+        res.status(202).send(
           JSON.stringify({
             //200 OK
             id: savedUser._id,
@@ -333,7 +335,7 @@ router.post("/ByFacebook", async (req, res) => {
             phone: savedUser.phone,
             usertype: savedUser.usertype,
             avatar: savedUser.avatar,
-            token: accessToken,
+            token: "",
           })
         );
       })
