@@ -233,7 +233,7 @@ router.post("/forgetPassword", async (req, res) => {
         res.json({ message: "error sending" });
         console.log(error);
       } else {
-        res.json({ message: "sent" });
+        res.json({ code: code });
 
         User.findOneAndUpdate(
           { email: req.body.email },
@@ -241,13 +241,8 @@ router.post("/forgetPassword", async (req, res) => {
           { new: true }
         )
 
-          .then((savedUser) => {
-          res.status(200).send(
-          JSON.stringify({
-            //200 OK
-              code: savedUser.code,
-          })
-        );
+          .then((user) => {
+          console.log(user);
           })
           .catch((err) => {
             console.log(err);
