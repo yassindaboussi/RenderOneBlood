@@ -241,8 +241,13 @@ router.post("/forgetPassword", async (req, res) => {
           { new: true }
         )
 
-          .then((user) => {
-            console.log(user);
+          .then((savedUser) => {
+          res.status(200).send(
+          JSON.stringify({
+            //200 OK
+              code: savedUser.code,
+          })
+        );
           })
           .catch((err) => {
             console.log(err);
