@@ -137,22 +137,22 @@ router.post("/UpdateUser", (req, res) => {
   };
   User.findByIdAndUpdate(req.body.id, { $set: updatedUser })
     .then((savedUser) => {
-              res.status(202).send(
-          JSON.stringify({
-            //200 OK
-              id: savedUser._id,
-              name: savedUser.name,
-              email: savedUser.email,
-              blood: savedUser.blood,
-              age: savedUser.age,
-              weight: savedUser.weight,
-              adress: savedUser.adress,
-              phone: savedUser.phone,
-              usertype: savedUser.usertype,
-              avatar: savedUser.avatar,
-              token: "",
-          })
-        );
+      res.status(202).send(
+        JSON.stringify({
+          //200 OK
+          id: savedUser._id,
+          name: savedUser.name,
+          email: savedUser.email,
+          blood: savedUser.blood,
+          age: savedUser.age,
+          weight: savedUser.weight,
+          adress: savedUser.adress,
+          phone: savedUser.phone,
+          usertype: savedUser.usertype,
+          avatar: savedUser.avatar,
+          token: "",
+        })
+      );
     })
     .catch((error) => {
       res.json({
@@ -216,9 +216,15 @@ var transporter = nodemailer.createTransport({
 router.post("/forgetPassword", async (req, res) => {
   const userMail = await User.findOne({ email: req.body.email });
   if (!userMail) {
-    res.json({ message: "email not found" });
+    res.status(405).json({
+      message: "email not found",
+    });
   } else {
-    var code = Math.floor(Math.random() * 100000);
+    var code = (Math.floor(Math.random() * 10000) + 10000)
+      .toString()
+      .substring(1);
+    console.log(code);
+    // var code = Math.floor(Math.random() * 100000);
     var mailContent = `Almost done : ` + code;
 
     var mailOptions = {
@@ -242,7 +248,7 @@ router.post("/forgetPassword", async (req, res) => {
         )
 
           .then((user) => {
-          console.log(user);
+            //console.log(user);
           })
           .catch((err) => {
             console.log(err);
@@ -301,17 +307,17 @@ router.post("/ByFacebook", async (req, res) => {
         res.status(200).send(
           JSON.stringify({
             //200 OK
-              id: savedUser._id,
-              name: savedUser.name,
-              email: savedUser.email,
-              blood: savedUser.blood,
-              age: savedUser.age,
-              weight: savedUser.weight,
-              adress: savedUser.adress,
-              phone: savedUser.phone,
-              usertype: savedUser.usertype,
-              avatar: savedUser.avatar,
-              token: accessToken,
+            id: savedUser._id,
+            name: savedUser.name,
+            email: savedUser.email,
+            blood: savedUser.blood,
+            age: savedUser.age,
+            weight: savedUser.weight,
+            adress: savedUser.adress,
+            phone: savedUser.phone,
+            usertype: savedUser.usertype,
+            avatar: savedUser.avatar,
+            token: accessToken,
           })
         );
       }
@@ -340,17 +346,17 @@ router.post("/ByFacebook", async (req, res) => {
         res.status(202).send(
           JSON.stringify({
             //200 OK
-              id: savedUser._id,
-              name: savedUser.name,
-              email: savedUser.email,
-              blood: savedUser.blood,
-              age: savedUser.age,
-              weight: savedUser.weight,
-              adress: savedUser.adress,
-              phone: savedUser.phone,
-              usertype: savedUser.usertype,
-              avatar: savedUser.avatar,
-              token: "",
+            id: savedUser._id,
+            name: savedUser.name,
+            email: savedUser.email,
+            blood: savedUser.blood,
+            age: savedUser.age,
+            weight: savedUser.weight,
+            adress: savedUser.adress,
+            phone: savedUser.phone,
+            usertype: savedUser.usertype,
+            avatar: savedUser.avatar,
+            token: "",
           })
         );
       })
