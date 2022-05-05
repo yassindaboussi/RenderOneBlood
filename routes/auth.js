@@ -216,7 +216,7 @@ var transporter = nodemailer.createTransport({
 router.post("/forgetPassword", async (req, res) => {
   const userMail = await User.findOne({ email: req.body.email });
   if (!userMail) {
-    res.status(405).json({
+    res.status(202).json({
       message: "email not found",
     });
   } else {
@@ -239,8 +239,9 @@ router.post("/forgetPassword", async (req, res) => {
         res.json({ message: "error sending" });
         console.log(error);
       } else {
-        res.json({ code: code });
-
+        res.status(205).json({
+          code: code,
+        });
         User.findOneAndUpdate(
           { email: req.body.email },
           { code: code },
