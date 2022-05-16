@@ -239,7 +239,7 @@ router.post("/forgetPassword", async (req, res) => {
         res.json({ message: "error sending" });
         console.log(error);
       } else {
-        res.status(205).json({
+        res.status(200).json({
           code: code,
         });
         User.findOneAndUpdate(
